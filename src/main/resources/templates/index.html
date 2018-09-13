@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+     <title>测试首页</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <script th:src="@{/js/jquery/2.0.0/jquery.min.js}"></script>
+    <style>
+        .STYLE1 {color: #000000}
+        .STYLE2 {color: #FF0000}
+        .divcss5-abc a{background:#fff; color:#000}
+        .divcss5-abc a:hover{ background:#222; color:#FFF}
+        body{ font-size:10px;}
+        A {color:#000;text-decoration:none;font-size:11px;}
+        input {background:#fff; border: 1px solid #000; padding:5px; }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<div class="gbook">
+    <!--<div class="bd">-->
+        <!--<h5>通用接口：http://jqaaa.com/jx.php?url=播放地址</h5>-->
+    <!--</div>-->
+    <div align="center">
+
+        <!--<script language="javascript">-->
+            <!--function g(formname) {-->
+                <!--var url = "http://jqaaa.com/jx.php";-->
+                <!--formname.action = url; -->
+                <!--return true;-->
+            <!--}-->
+        <!--</script>  onSubmit="return g(this)"-->
+        <!--<form name="f1" action="/index">-->
+            <table align="center">
+                <tbody><tr><td>
+                    <input class="inout" name="url" size="77%" maxlength="100" value="输入页面地址" onFocus="if(this.value=='输入页面地址')this.value='';" >
+                    <!--<input type="submit" value="播放">-->
+                    <button type="button" onclick="playthis()">播放</button>
+                </td></tr></tbody></table>
+        <!--</form>-->
+    </div>
+    <p align="center">
+        <iframe id="myVideo" height="450" width="600" frameborder="0" src="http://jqaaa.com/jx.php?url=" allowfullscreen="" scrolling="no"></iframe>
+    </p>
+</div>
+<script th:inline="javascript">
+    var ctx = [[@{/}]];
+        function playthis(){
+            var url = $("input[name='url']").val();
+            $.ajax({
+
+                type: "post",
+                url: ctx + "index",
+    //      data: "para="+para,  此处data可以为 a=1&b=2类型的字符串 或 json数据。
+                data: {"url":url},
+                cache: false,
+                async : false,
+                dataType: "json",
+                success: function (r) {
+                    var MV=document.getElementById("myVideo");
+                    MV.src=r.id;
+                    MV.play();
+                }
+        });
+    }
+    // function playlist(a){
+    //     var MV=document.getElementById("myVideo");
+    //     MV.src=a.id;
+    //     MV.play();
+    // }
+</script>
+<span style="display: none;"><script src='https://w.cnzz.com/c.php?id=1265672727&l=3' language='JavaScript'></script></span>
+</body>
+</html>
